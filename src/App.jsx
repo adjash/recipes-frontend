@@ -7,8 +7,8 @@ import Details from './Details';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1,
-      cacheTime: 1,
+      staleTime: Infinity,
+      cacheTime: Infinity,
     },
   },
 })
