@@ -1,30 +1,22 @@
-import {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import supabase from '../../util/supabaseConfig';
+import useRecipeList from '../../util/fetchers/fetchRecipeList';
 
 export default function RecipeList() {
-  const [recipes, setRecipes] = useState([]);
+  const {data, isLoading, error } = useRecipeList();
 
-  useEffect(() => {
-    getRecipes();
-  }, []);
-
-  async function getRecipes() {
-    const {data} = await supabase.from('Recipes').select('*');
-    setRecipes(data);
+  if (isLoading) {
+    return (<p>loading</p>)
   }
-  const stripSpaces = (str) => {
-    return str.toLowerCase().replaceAll(' ', '-');
+  if (error) {
+    return (<p>error</p>)
   }
+  
   return (
     <ul>
-      {recipes.map((recipe) => (
+      {data.map((recipe) => (
         <li key={recipe.id}>
-            <Link 
-              className='link' 
-              to={`/recipe/${recipe.id}`}
-              >
-                {recipe.title}
+            <Link className='link' to={`/recipe/${recipe.id}`}>
+              {recipe.title}
             </Link>
         </li>
       ))}

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useRecipe from "./fetchRecipe";
+import useRecipe from "./util/fetchers/fetchRecipe";
 import Steps from "./components/steps/steps";
 
 const Details = () => {
